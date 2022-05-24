@@ -41,8 +41,14 @@ function populateFormInput() {
     const parsedSavedFormData = JSON.parse(savedFormData);
 
     if (parsedSavedFormData) {
-        refs.input.value = parsedSavedFormData.email;
-        refs.textarea.value = parsedSavedFormData.message;
+
+        if (parsedSavedFormData.email) {
+            refs.input.value = parsedSavedFormData.email;
+        }
+
+        if (parsedSavedFormData.message) {
+            refs.textarea.value = parsedSavedFormData.message;
+        }
     }
     
     }
