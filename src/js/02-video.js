@@ -2,8 +2,6 @@ import throttle from "lodash.throttle";
 
 ///////////Define the player
 
-throttle = require("lodash.throttle");
-
 const iframe = document.querySelector('iframe');
     const player = new Vimeo.Player(iframe);
 
@@ -18,10 +16,10 @@ const iframe = document.querySelector('iframe');
 ///////////// take the time from local storage
 
 const savedTiming = localStorage.getItem("videoplayer-current-time");
-///Якщо цей вираз приводиться до true, тоді виконується, а якщо null -  то false
+///IF true - if timing saved - execute
 if (savedTiming) {
     const savedTimingParsed = JSON.parse(savedTiming);
-    console.log(savedTimingParsed);
+    console.log('savedTiming: ',savedTimingParsed);
     const secondsTime = savedTimingParsed.seconds;
 
     player.setCurrentTime(secondsTime).then(function(seconds) {
@@ -40,10 +38,9 @@ if (savedTiming) {
 }
 
 //////////// record paused time with throttle
-
 player.on('timeupdate', throttle(onTime,1000));
 
 function onTime(data) {
-    const videoplayerCurrentTime = JSON.stringify(data);    // console.log(videoplayerCurrentTime);
+    const videoplayerCurrentTime = JSON.stringify(data);
     localStorage.setItem("videoplayer-current-time", videoplayerCurrentTime);
 }
